@@ -3,8 +3,12 @@
 /*  Register Scripts and Style */
 
 function theme_register_scripts() {
-    wp_enqueue_style( 'style', get_stylesheet_uri() );
+    wp_enqueue_style( 'simplejs-style', get_stylesheet_uri() );
     wp_enqueue_script( 'vue', esc_url( trailingslashit( get_template_directory_uri() ) . 'node_modules/vue/dist/vue.min.js' ), array(), '', true );
+    wp_enqueue_script( 'vue-router', esc_url( trailingslashit( get_template_directory_uri() ) . 'node_modules/vue-router/dist/vue-router.min.js' ), array(), '', true );
+    wp_enqueue_script( 'vue-resource', esc_url( trailingslashit( get_template_directory_uri() ) . 'node_modules/vue-resource/dist/vue-resource.min.js' ), array(), '', true );
+    wp_enqueue_script( 'app', esc_url( trailingslashit( get_template_directory_uri() ) . 'js/app.js' ), array(), '', true );
+    
 }
 add_action( 'wp_enqueue_scripts', 'theme_register_scripts', 1 );
 
