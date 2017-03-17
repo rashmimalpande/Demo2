@@ -1,4 +1,4 @@
-var App = Vue.extend({});
+Vue.use(VueRouter);
 
 var postList = Vue.extend({
     template: '#post-list-template',
@@ -27,8 +27,21 @@ var postList = Vue.extend({
     }
 });
 
+
+var singlePost = Vue.extend({
+    template: '#single-post-template',
+    data: function(){
+        return {
+            post:''
+        }
+    },
+    
+});
+
+
 var router = new VueRouter({
     routes: [
+        {path:'/post/:slug', name:'post', component: singlePost},        
         {path: '/', component: postList}
     ]
 });
@@ -38,5 +51,4 @@ var router = new VueRouter({
 new Vue({
     el:'#app',
     router: router
-
 });

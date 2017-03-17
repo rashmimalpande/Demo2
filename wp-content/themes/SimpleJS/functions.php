@@ -66,3 +66,5 @@ function excerpt($limit) {
     $excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
     return $excerpt;
 }
+
+
