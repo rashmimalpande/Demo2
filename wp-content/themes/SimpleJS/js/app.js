@@ -32,7 +32,7 @@ var singlePost = Vue.extend({
     template: '#single-post-template',
      data: function(){
         return {
-            id: this.$route.params.postId,
+            id: this.$route.params.slug,
             post: ''
         }
     },
@@ -45,7 +45,7 @@ var singlePost = Vue.extend({
         fetchPost: function(){
             var xhr = new XMLHttpRequest();
             var self = this;
-            xhr.open('GET', 'wp-json/wp/v2/posts/'+self.id);
+            xhr.open('GET', 'wp-json/wp/v2/posts/?slug='+self.id);
             xhr.onload = function(){
                 self.post = JSON.parse(xhr.responseText);
                 console.log(self.post)
@@ -55,9 +55,9 @@ var singlePost = Vue.extend({
         }
     },
 
-    computed: {
+   computed: {
         fetchHtml: function(){
-            return this.post.content.rendered;
+            return this.post[0].content.rendered;
         }
     }
     
@@ -66,7 +66,7 @@ var singlePost = Vue.extend({
 
 var router = new VueRouter({
     routes: [
-        {path:'/post/:postId', name:'post', component: singlePost},         
+        {path:'/post/:slug', name:'post', component: singlePost},         
         {path: '/', component: postList}
     ]
 });
