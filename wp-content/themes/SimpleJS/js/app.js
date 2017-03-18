@@ -30,18 +30,43 @@ var postList = Vue.extend({
 
 var singlePost = Vue.extend({
     template: '#single-post-template',
-    data: function(){
+     data: function(){
         return {
-            post:''
+            id: this.$route.params.postId,
+            post: ''
         }
     },
+    
+    created: function(){
+        this.fetchPost()
+    },
+
+    methods: {
+        fetchPost: function(){
+            var xhr = new XMLHttpRequest();
+            var self = this;
+            xhr.open('GET', 'wp-json/wp/v2/posts/'+self.id);
+            xhr.onload = function(){
+                self.post = JSON.parse(xhr.responseText);
+                console.log(self.post)
+            }
+
+            xhr.send();
+        }
+    },
+
+    computed: {
+        fetchHtml: function(){
+            return this.post.content.rendered;
+        }
+    }
     
 });
 
 
 var router = new VueRouter({
     routes: [
-        {path:'/post/:slug', name:'post', component: singlePost},        
+        {path:'/post/:postId', name:'post', component: singlePost},         
         {path: '/', component: postList}
     ]
 });
