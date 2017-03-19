@@ -20,11 +20,18 @@
 
 
     <template id="single-post-template">
+        
         <div class="container">
             <div class="post-list">
+                <div class="banner">
+                    <img :src="post[0].featured_url">
+                </div>
                 <h2 class="post-title" v-if="post">{{post[0].title.rendered}}</h2> 
             
                <div class="post-content" v-if="post" v-html="fetchHtml"></div>
+               <div class="category">
+                    <span v-for="category in post[0].categories">{{category.name}}</span>
+               </div>
         </div>
     </template>
 

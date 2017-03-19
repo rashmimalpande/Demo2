@@ -68,4 +68,18 @@ function excerpt($limit) {
     return $excerpt;
 }
 
+function prepare_rest($data, $post, $request){
+    $_data = $data->data;
 
+    $featured_id = get_post_thumbnail_id($post->ID);
+    $featured_url = wp_get_attachment_image_src($featured_id, 'full');
+    $categories = get_the_category($post->ID);
+
+    $_data['featured_url'] = $featured_url[0];
+    $_data['categories'] = $categories;
+    $data->data = $_data;
+
+    return $data;
+}
+
+add_filter('rest_prepare_post', 'prepare_rest', 10, 3);

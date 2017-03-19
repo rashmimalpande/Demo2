@@ -64,3 +64,16 @@ blockquote{
     font-weight: 300;
 }
 
+.category{
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;    
+}
+
+.category span{
+    background: tomato;
+    padding: 5px 5px;
+    margin-right: 10px;
+    color: #fff;
+}
