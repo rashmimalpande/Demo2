@@ -74,9 +74,11 @@ function prepare_rest($data, $post, $request){
     $featured_id = get_post_thumbnail_id($post->ID);
     $featured_url = wp_get_attachment_image_src($featured_id, 'full');
     $categories = get_the_category($post->ID);
+    $author_name = get_the_author_meta('display_name');
 
     $_data['featured_url'] = $featured_url[0];
-    $_data['categories'] = $categories;
+    $_data['category_names'] = $categories;
+    $_data['author_name'] = $author_name;
     $data->data = $_data;
 
     return $data;

@@ -33,7 +33,7 @@ var singlePost = Vue.extend({
      data: function(){
         return {
             id: this.$route.params.slug,
-            post: ''
+            post: []
         }
     },
     
@@ -53,21 +53,45 @@ var singlePost = Vue.extend({
 
             xhr.send();
         }
-    },
-
-   computed: {
-        fetchHtml: function(){
-            return this.post[0].content.rendered;
-        }
     }
     
+});
+
+var singleCategory = Vue.extend({
+    template: '#single-category-template',
+    data: function(){
+        return{
+            cat_id: this.$route.params.catId,
+            category_posts: []
+        }
+    },
+
+    created: function(){
+        this.fetchPost()
+    },
+
+    methods: {
+        fetchPost: function(){
+            var xhr = new XMLHttpRequest();
+            var self = this;
+            xhr.open('GET', 'wp-json/wp/v2/posts?categories='+self.cat_id);
+            xhr.onload = function(){
+                self.category_posts = JSON.parse(xhr.responseText);
+                console.log(self.category_posts)
+            }
+
+            xhr.send();
+        }
+    }
+
 });
 
 
 var router = new VueRouter({
     routes: [
+        {path: '/', component: postList},
         {path:'/post/:slug', name:'post', component: singlePost},         
-        {path: '/', component: postList}
+        {path: '/category/:catId', name:'category', component: singleCategory}        
     ]
 });
 
