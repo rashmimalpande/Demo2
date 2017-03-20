@@ -32,6 +32,43 @@ blockquote{
     padding: 0;
 }
 
+.home-banner{
+    background: url(images/banner.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 50vh;
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.post-wrapper{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+main{
+  width: 100%;
+  margin-top: 50px;
+}
+
+header{
+  float: left;
+  text-align: right;
+  width: 30%;
+  margin-right: 10%;
+}
+
+article{
+  display: block;
+  overflow: hidden;
+}
+
+.banner img{
+    width: 100%;
+    height: 500px;
+}
+
 .container{
     width: 1100px;
     margin: 0 auto;
@@ -100,4 +137,15 @@ blockquote{
     border: 2px solid #333;
     padding: 5px;
     cursor: pointer;
+    width: 100px;
+}
+
+.pagination{
+    text-align: center;
+    padding: 10px;
+}
+
+.pagination span{
+    padding-left: 10px;
+    padding-right: 10px;    
 }
