@@ -41,7 +41,8 @@
                 </div>
                 <header>
                     <h1>{{single_post.title.rendered}}</h1>
-                    <p>by {{single_post.author_name}}</p>
+                    <p>by <router-link :to="{name: 'author', params:{user: single_post.author_name}}">{{single_post.author_name}}</p>
+                    <p>{{single_post.post_date}}</p>
                 </header>
                 <article>
                     <div class="post-content" v-html="single_post.content.rendered"></div>
@@ -66,6 +67,21 @@
             <div class="post-list">
                 <h1>Category: {{cat_id}}</h1>
                 <article v-for="post in category_posts">
+                    <h2 class="post-title"><router-link :to="{name:'post', params:{slug: post.slug}}">{{ post.title.rendered }}</router-link></h2>
+                    <p v-html="post.excerpt.rendered"></p>
+                </article>
+            </div>
+
+        
+        </div>
+    </template>
+
+
+    <template id="single-author-template">
+        <div class="container">
+            <div class="post-list">
+                <h1>Author: {{user}}</h1>
+                <article v-for="post in author_posts">
                     <h2 class="post-title"><router-link :to="{name:'post', params:{slug: post.slug}}">{{ post.title.rendered }}</router-link></h2>
                     <p v-html="post.excerpt.rendered"></p>
                 </article>

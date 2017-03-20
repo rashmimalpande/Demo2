@@ -119,12 +119,42 @@ var singleCategory = Vue.extend({
 
 });
 
+var singleAuthor = Vue.extend({
+    template: '#single-author-template',
+    data: function(){
+        return{
+             user: this.$route.params.user,
+             author_posts: []
+        }
+    },
+
+    created: function(){
+        this.fetchPost()
+    },
+
+    methods: {
+        fetchPost: function(){
+            var xhr = new XMLHttpRequest();
+            var self = this;
+            xhr.open('GET', 'wp-json/wp/v2/posts?user='+self.user);
+            xhr.onload = function(){
+                self.author_posts = JSON.parse(xhr.responseText);
+            }
+
+            xhr.send();
+        }
+    }
+
+});
+
 
 var router = new VueRouter({
     routes: [
         {path: '/', component: postList},
         {path:'/post/:slug', name:'post', component: singlePost},         
-        {path: '/category/:catId', name:'category', component: singleCategory}        
+        {path: '/category/:catId', name:'category', component: singleCategory},
+        {path: '/author/:user', name:'author', component: singleAuthor}        
+                
     ]
 });
 

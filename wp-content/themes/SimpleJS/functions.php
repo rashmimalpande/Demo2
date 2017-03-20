@@ -83,11 +83,14 @@ function prepare_rest($data, $post, $request){
     $prev = get_adjacent_post(false, '', false);
     $prev =$prev->post_name;
 
+    $post_date = get_the_date('F j, Y');
+
     $_data['featured_url'] = $featured_url[0];
     $_data['category_names'] = $categories;
     $_data['author_name'] = $author_name;
     $_data['next_post'] = $next;
     $_data['prev_post'] = $prev;
+    $_data['post_date'] = $post_date;
     $data->data = $_data;
 
     return $data;

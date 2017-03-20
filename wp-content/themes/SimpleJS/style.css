@@ -9,9 +9,12 @@ Author URI: http://rashmi.website
 
 */
 
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700');
+
 body{
     margin: 0;
     padding: 0;
+    font-family: 'Lato', sans-serif;
 }
 
 a{
@@ -57,6 +60,14 @@ header{
   text-align: right;
   width: 30%;
   margin-right: 10%;
+}
+
+.post-wrapper header p {
+    line-height: 0.5;
+}
+
+.post-wrapper header h1{
+    font-size: 2.8em;
 }
 
 article{
