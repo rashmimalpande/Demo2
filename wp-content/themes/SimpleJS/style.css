@@ -9,6 +9,15 @@ Author URI: http://rashmi.website
 
 */
 
+body{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
 blockquote{
     background: #e7e7e7;
     padding: 20px;
@@ -76,4 +85,19 @@ blockquote{
     padding: 5px 5px;
     margin-right: 10px;
     color: #fff;
+}
+
+.next-prev {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.btn {
+    background: transparent;
+    border: 2px solid #333;
+    padding: 5px;
+    cursor: pointer;
 }

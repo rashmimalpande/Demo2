@@ -4,25 +4,47 @@ var postList = Vue.extend({
     template: '#post-list-template',
     data: function(){
         return {
-            posts: ''
+            posts: '',
+            currentPage: '',
+            allPages: '',
+            prev_page:'',
+            next_page:''
         }
     },
 
     created: function(){
-        this.fetchData()
+        this.fetchData(1)
     },
 
     methods: {
-        fetchData: function(){
+        fetchData: function(pageNumber){
             var xhr = new XMLHttpRequest();
             var self = this;
-            xhr.open('GET', 'wp-json/wp/v2/posts');
+            self.currentPage = pageNumber;
+            xhr.open('GET', 'wp-json/wp/v2/posts?per_page=2&page=' + pageNumber);
             xhr.onload = function(){
                 self.posts = JSON.parse(xhr.responseText);
-
+                self.makePagination(xhr.getResponseHeader('X-WP-TotalPages'));
             }
 
             xhr.send();
+        },
+
+        makePagination: function(data){
+            this.allPages = data;
+            //Setup prev page
+            if(this.currentPage > 1){
+               this.prev_page = this.currentPage - 1;
+            } else {
+                this.prev_page = null;
+            }
+
+            // Setup next page
+            if(this.currentPage == this.allPages){
+                this.next_page = null;
+            } else {
+                this.next_page = this.currentPage + 1 ;
+            }
         }
     }
 });
@@ -30,6 +52,7 @@ var postList = Vue.extend({
 
 var singlePost = Vue.extend({
     template: '#single-post-template',
+
      data: function(){
         return {
             id: this.$route.params.slug,
@@ -37,10 +60,18 @@ var singlePost = Vue.extend({
         }
     },
     
+   
+
     created: function(){
         this.fetchPost()
     },
 
+     watch: {
+        '$route' (to, from){
+              this.fetchPost();
+        }
+    },
+    
     methods: {
         fetchPost: function(){
             var xhr = new XMLHttpRequest();
@@ -54,6 +85,8 @@ var singlePost = Vue.extend({
             xhr.send();
         }
     }
+
+    
     
 });
 

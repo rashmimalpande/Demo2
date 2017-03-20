@@ -73,15 +73,28 @@ function prepare_rest($data, $post, $request){
 
     $featured_id = get_post_thumbnail_id($post->ID);
     $featured_url = wp_get_attachment_image_src($featured_id, 'full');
+
     $categories = get_the_category($post->ID);
     $author_name = get_the_author_meta('display_name');
+
+    $next = get_adjacent_post(false, '', true);
+    $next =$next->post_name;
+
+    $prev = get_adjacent_post(false, '', false);
+    $prev =$prev->post_name;
 
     $_data['featured_url'] = $featured_url[0];
     $_data['category_names'] = $categories;
     $_data['author_name'] = $author_name;
+    $_data['next_post'] = $next;
+    $_data['prev_post'] = $prev;
     $data->data = $_data;
 
     return $data;
 }
 
 add_filter('rest_prepare_post', 'prepare_rest', 10, 3);
+
+function simplejs_category_posts( $data ){
+
+}

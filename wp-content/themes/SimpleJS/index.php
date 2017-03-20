@@ -15,6 +15,17 @@
                     <p v-html="post.excerpt.rendered"></p>
                 </article>
             </div>
+
+            <div class="pagination">
+                <span>Page {{currentPage}} of {{allPages}}</span>
+                <button class="btn" v-on:click="fetchData(prev_page)" :disabled="!prev_page">
+                    Previous
+                </button>
+                
+                <button class="btn" v-on:click="fetchData(next_page)" :disabled="!next_page">
+                    Next
+                </button>
+            </div>
         </div>
     </template>
 
@@ -34,6 +45,11 @@
                     ">
                         <router-link :to="{name:'category', params:{catId: category.cat_ID}}">{{category.name}}</router-link>
                     </span>
+               </div>
+
+               <div class="next-prev">
+                    <p v-if="single_post.prev_post"><router-link :to="{name:'post', params:{slug: single_post.prev_post}}">Prev Post</router-link></p>
+                    <p v-if="single_post.next_post"><router-link :to="{name:'post', params:{slug: single_post.next_post}}">Next Post</router-link></p>
                </div>
             </div>
         </div>
