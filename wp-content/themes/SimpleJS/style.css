@@ -29,6 +29,23 @@ blockquote{
     color: #333;
 }
 
+.site-header{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.site-header li{
+    display: inline;
+    list-style: none;
+    padding: 20px;
+
+}
+
 .wrapper{
     width: 100%;
     background: #fff;
@@ -68,7 +85,7 @@ main{
   margin-top: 50px;
 }
 
-header{
+.post-wrapper header{
   float: left;
   text-align: right;
   width: 30%;

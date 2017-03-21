@@ -10,6 +10,7 @@
     <!-- Home Template -->    
     <template id="post-list-template">
         <div>
+            
             <header class="home-banner">
                 <h2>Simple Blog Theme</h2>
             </header>
@@ -19,7 +20,7 @@
                         <h2 class="post-title"><router-link :to="{name:'post', params:{slug: post.slug}}">{{ post.title.rendered }}</router-link></h2>
                         <p v-html="post.excerpt.rendered"></p>
                         <div class="meta">
-                            <p>by {{post.author_name}} </p>
+                            <p>by <router-link :to="{name: 'author', params:{id:post.author, user: post.author_name}}">{{post.author_name}}</router-link> </p>
                             <p>{{post.post_date}}</p>
                         </div>
                         
@@ -49,7 +50,7 @@
                 </div>
                 <header>
                     <h1>{{single_post.title.rendered}}</h1>
-                    <p>by <router-link :to="{name: 'author', params:{user: single_post.author_name}}">{{single_post.author_name}}</p>
+                    <p>by <router-link :to="{name: 'author', params:{id:single_post.author, user: single_post.author_name}}">{{single_post.author_name}}</router-link></p>
                     <p>{{single_post.post_date}}</p>
                 </header>
                 <article>
@@ -73,10 +74,14 @@
     <template id="single-category-template">
         <div class="container">
             <div class="post-list">
-                <h1>Category: {{cat_id}}</h1>
+                <h1>Category: {{cat_name.name}}</h1>
                 <article v-for="post in category_posts">
                     <h2 class="post-title"><router-link :to="{name:'post', params:{slug: post.slug}}">{{ post.title.rendered }}</router-link></h2>
                     <p v-html="post.excerpt.rendered"></p>
+                    <div class="meta">
+                            <p>by <router-link :to="{name: 'author', params:{id:post.author, user: post.author_name}}">{{post.author_name}} </router-link></p>
+                            <p>{{post.post_date}}</p>
+                    </div>
                 </article>
             </div>
 
@@ -93,6 +98,10 @@
                 <article v-for="post in author_posts">
                     <h2 class="post-title"><router-link :to="{name:'post', params:{slug: post.slug}}">{{ post.title.rendered }}</router-link></h2>
                     <p v-html="post.excerpt.rendered"></p>
+                    <div class="meta">
+                            <p>by <router-link :to="{name: 'author', params:{id:post.author, user: post.author_name}}">{{post.author_name}} </router-link></p>
+                            <p>{{post.post_date}}</p>
+                     </div>
                 </article>
             </div>
 

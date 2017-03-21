@@ -99,22 +99,3 @@ function prepare_rest($data, $post, $request){
 
 add_filter('rest_prepare_post', 'prepare_rest', 10, 3);
 
-function simplejs_category_posts( $data ){
-        $posts = get_posts( array(
-            'category_name'=> $data['category_name']
-        ));
-
-        if ( empty( $posts ) ) {
-            return null;
-        }
-        
-        return $posts;
-}
-
-add_action('rest_api_init', function(){
-    register_rest_route( 'simplejs/v1', '/posts?cat_slug=category_name',array(
-        'methods' => 'GET',
-        'callback' => 'simplejs_category_posts',
-
-    ));
-});

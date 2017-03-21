@@ -21,7 +21,7 @@ var postList = Vue.extend({
             var xhr = new XMLHttpRequest();
             var self = this;
             self.currentPage = pageNumber;
-            xhr.open('GET', 'wp-json/wp/v2/posts?per_page=2&page=' + pageNumber);
+            xhr.open('GET', 'wp-json/wp/v2/posts?per_page=5&page=' + pageNumber);
             xhr.onload = function(){
                 self.posts = JSON.parse(xhr.responseText);
                 localStorage.setItem('self.posts', JSON.parse(xhr.responseText));              
@@ -99,12 +99,14 @@ var singleCategory = Vue.extend({
     data: function(){
         return{
             cat_id: this.$route.params.catId,
+            cat_name:'',
             category_posts: []
         }
     },
 
     created: function(){
         this.fetchPost()
+        this.fetchCategory()
     },
 
     methods: {
@@ -119,7 +121,20 @@ var singleCategory = Vue.extend({
             }
 
             xhr.send();
+        },
+
+        fetchCategory: function(){
+            var xhr = new XMLHttpRequest();
+            var self = this;
+            xhr.open('GET', 'wp-json/wp/v2/categories/'+self.cat_id);
+            xhr.onload = function(){
+                self.cat_name = JSON.parse(xhr.responseText);
+                localStorage.setItem('self.cat_name', JSON.parse(xhr.responseText));
+            }
+
+            xhr.send();
         }
+
     }
 
 });
@@ -129,6 +144,7 @@ var singleAuthor = Vue.extend({
     data: function(){
         return{
              user: this.$route.params.user,
+             id: this.$route.params.id,
              author_posts: []
         }
     },
@@ -141,7 +157,7 @@ var singleAuthor = Vue.extend({
         fetchPost: function(){
             var xhr = new XMLHttpRequest();
             var self = this;
-            xhr.open('GET', 'wp-json/wp/v2/posts?user='+self.user);
+            xhr.open('GET', 'wp-json/wp/v2/posts?author='+self.id);
             xhr.onload = function(){
                 self.author_posts = JSON.parse(xhr.responseText);
                 localStorage.setItem('self.author_posts', JSON.parse(xhr.responseText));                
@@ -157,9 +173,9 @@ var singleAuthor = Vue.extend({
 var router = new VueRouter({
     routes: [
         {path: '/', component: postList},
-        {path:'/post/:slug', name:'post', component: singlePost},         
+        {path:'/blog/:slug', name:'post', component: singlePost},         
         {path: '/category/:catId', name:'category', component: singleCategory},
-        {path: '/author/:user', name:'author', component: singleAuthor}        
+        {path: '/author/:id/:user', name:'author', component: singleAuthor}        
                 
     ]
 });
