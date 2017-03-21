@@ -215,6 +215,7 @@ article{
     background: #177e89;
     padding: 5px 10px;
     margin-right: 10px;
+    margin-bottom: 20px;
     
 }
 
@@ -280,3 +281,36 @@ article{
     font-size: 25px;
     color: #333;  
 }
+
+@media only screen and (max-width: 700px){
+    .list div{
+        width: 100%;
+        margin: 20px;
+    }
+}
+
+@media only screen and (max-width: 1100px){
+
+    .post-wrapper header {
+        width: 100%;
+        float: none;
+        text-align: left;
+    }
+
+    .list div{
+        margin: 20px auto;
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width:1200px){
+    .container{
+        width: 100%;
+    }
+
+    img {
+        width: 100%;
+    }
+
+}
+
