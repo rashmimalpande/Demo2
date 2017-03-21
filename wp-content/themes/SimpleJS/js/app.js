@@ -21,7 +21,7 @@ var postList = Vue.extend({
             var xhr = new XMLHttpRequest();
             var self = this;
             self.currentPage = pageNumber;
-            xhr.open('GET', 'wp-json/wp/v2/posts?per_page=5&page=' + pageNumber);
+            xhr.open('GET', 'wp-json/wp/v2/posts?per_page=10&page=' + pageNumber);
             xhr.onload = function(){
                 self.posts = JSON.parse(xhr.responseText);
                 localStorage.setItem('self.posts', JSON.parse(xhr.responseText));              
@@ -169,14 +169,64 @@ var singleAuthor = Vue.extend({
 
 });
 
+var Authors = Vue.extend({
+    template: '#all-authors-template',
+    data: function(){
+        return {
+            authors: [],
+            currentPage: '',
+            allPages: '',
+            prev_page:'',
+            next_page:''
+        }
+    },
+
+    created: function(){
+        this.fetchAuthors(1)
+    },
+
+    methods: {
+        fetchAuthors: function(pageNumber){
+            var xhr = new XMLHttpRequest();
+            var self = this;
+            self.currentPage = pageNumber;
+            xhr.open('GET', 'wp-json/wp/v2/users?per_page=10&page='+pageNumber);
+            xhr.onload = function(){
+                self.authors = JSON.parse(xhr.responseText);
+                localStorage.setItem('self.authors', JSON.parse(xhr.responseText));        
+                self.makePagination(xhr.getResponseHeader('X-WP-TotalPages'));        
+            }
+
+            xhr.send();
+        },
+
+        makePagination: function(data){
+            this.allPages = data;
+            //Setup prev page
+            if(this.currentPage > 1){
+               this.prev_page = this.currentPage - 1;
+            } else {
+                this.prev_page = null;
+            }
+
+            // Setup next page
+            if(this.currentPage == this.allPages){
+                this.next_page = null;
+            } else {
+                this.next_page = this.currentPage + 1 ;
+            }
+        }
+    }
+})
 
 var router = new VueRouter({
     routes: [
         {path: '/', component: postList},
         {path:'/blog/:slug', name:'post', component: singlePost},         
         {path: '/category/:catId', name:'category', component: singleCategory},
-        {path: '/author/:id/:user', name:'author', component: singleAuthor}        
-                
+        {path: '/author/:id/:user', name:'author', component: singleAuthor},        
+        {path: '/authors', name:'authors', component: Authors},        
+        
     ]
 });
 

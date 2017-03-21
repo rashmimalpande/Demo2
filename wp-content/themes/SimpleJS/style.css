@@ -46,6 +46,14 @@ blockquote{
 
 }
 
+.site-header a {
+    color: #333;
+}
+
+.site-header a:hover{
+    border-bottom: 2px solid #333;
+}
+
 .wrapper{
     width: 100%;
     background: #fff;
@@ -54,26 +62,46 @@ blockquote{
     padding-bottom: 50px;
 }
 
-.home-banner{
-    background: url(images/banner.jpg);
-    background-size: cover;
+.home-banner,
+.category-banner,
+.author-banner{
+   
     width: 100%;
     height: 50vh;
-    background-attachment: fixed;
-    background-position: center center;
     text-align: center;
     display: flex;
     color: #fff;
     align-items: center;
     vertical-align: middle;
     justify-content: center;
+    font-size: 2em;
 }
 
+.home-banner{
+    background: url('images/home.jpg');
+     background-size: cover;
+     background-attachment: fixed;
+    background-position: center center;
+}
 .home-banner h2{
     font-size: 2.5em;
     border-bottom: 2px solid #fff;
+    
 }
 
+.category-banner{
+    background: url('images/banner.jpg');
+     background-size: cover;
+     background-attachment: fixed;
+    background-position: center center;
+}
+
+.author-banner{
+    background: url('images/author.jpg');
+     background-size: cover;
+     background-attachment: fixed;
+    background-position: center center;
+}
 .post-wrapper{
     width: 80%;
     margin-left: 10%;
@@ -97,8 +125,13 @@ main{
     justify-content: space-between;
     align-items: center;
     color: #aaa;
+    font-style: italic;
 }
 
+.meta a,
+.post-wrapper a{
+    color: #337ab7;
+}
 .post-wrapper header p {
     line-height: 0.5;
 }
@@ -154,6 +187,14 @@ article{
     margin-bottom: 10px;
 }
 
+.post-title a{
+    color: #333;
+}
+
+.post-title a:hover{
+    color: #337ab7;
+}
+
 .post-content{
     font-size: 20px;
     margin-top: 20px;
@@ -165,12 +206,19 @@ article{
     justify-content: flex-start;
     align-content: center;
     flex-wrap: wrap;    
+    padding: 20px;
+    border-top: 4px solid #eee;
+    border-bottom: 4px solid #eee;
 }
 
 .category span{
-    background: tomato;
-    padding: 5px 5px;
+    background: #177e89;
+    padding: 5px 10px;
     margin-right: 10px;
+    
+}
+
+.category span a{
     color: #fff;
 }
 
@@ -200,6 +248,24 @@ article{
     padding-right: 10px;    
 }
 
+.list{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.list div{
+    width: 500px;
+    border: 2px solid #eee;
+    height: 200px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.list a{
+    color: #337ab7;
+}
 .social{
     width: 100%;
     height: 200px;
