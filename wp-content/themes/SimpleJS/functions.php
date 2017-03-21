@@ -9,6 +9,7 @@ function theme_register_scripts() {
     wp_enqueue_script( 'vue', esc_url( trailingslashit( get_template_directory_uri() ) . 'node_modules/vue/dist/vue.min.js' ), array(), '', true );
     wp_enqueue_script( 'vue-router', esc_url( trailingslashit( get_template_directory_uri() ) . 'node_modules/vue-router/dist/vue-router.min.js' ), array(), '', true );
     wp_enqueue_script( 'app', esc_url( trailingslashit( get_template_directory_uri() ) . 'js/app.js' ), array(), '', true );
+    wp_enqueue_style( 'simplejs-fa', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
     
 }
 add_action( 'wp_enqueue_scripts', 'theme_register_scripts', 1 );
@@ -99,5 +100,21 @@ function prepare_rest($data, $post, $request){
 add_filter('rest_prepare_post', 'prepare_rest', 10, 3);
 
 function simplejs_category_posts( $data ){
+        $posts = get_posts( array(
+            'category_name'=> $data['category_name']
+        ));
 
+        if ( empty( $posts ) ) {
+            return null;
+        }
+        
+        return $posts;
 }
+
+add_action('rest_api_init', function(){
+    register_rest_route( 'simplejs/v1', '/posts?cat_slug=category_name',array(
+        'methods' => 'GET',
+        'callback' => 'simplejs_category_posts',
+
+    ));
+});

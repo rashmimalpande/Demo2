@@ -7,14 +7,22 @@
         </div>
     </div>    
 
+    <!-- Home Template -->    
     <template id="post-list-template">
         <div>
-            <header class="home-banner"></header>
+            <header class="home-banner">
+                <h2>Simple Blog Theme</h2>
+            </header>
             <div class="container">
                 <div class="post-list">
                     <article v-for="post in posts">
                         <h2 class="post-title"><router-link :to="{name:'post', params:{slug: post.slug}}">{{ post.title.rendered }}</router-link></h2>
                         <p v-html="post.excerpt.rendered"></p>
+                        <div class="meta">
+                            <p>by {{post.author_name}} </p>
+                            <p>{{post.post_date}}</p>
+                        </div>
+                        
                     </article>
                 </div>
 
@@ -32,7 +40,7 @@
         </div>
     </template>
 
-
+    <!-- Single Post Template -->
     <template id="single-post-template">
         <div class="post-wrapper">
             <main v-for="single_post in post">
@@ -61,7 +69,7 @@
         </div>
     </template>
 
-
+    <!-- Category Template -->    
     <template id="single-category-template">
         <div class="container">
             <div class="post-list">
@@ -77,6 +85,7 @@
     </template>
 
 
+    <!-- Author Template -->
     <template id="single-author-template">
         <div class="container">
             <div class="post-list">

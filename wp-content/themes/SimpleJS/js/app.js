@@ -24,6 +24,7 @@ var postList = Vue.extend({
             xhr.open('GET', 'wp-json/wp/v2/posts?per_page=2&page=' + pageNumber);
             xhr.onload = function(){
                 self.posts = JSON.parse(xhr.responseText);
+                localStorage.setItem('self.posts', JSON.parse(xhr.responseText));              
                 self.makePagination(xhr.getResponseHeader('X-WP-TotalPages'));
             }
 
@@ -68,8 +69,11 @@ var singlePost = Vue.extend({
 
      watch: {
         '$route' (to, from){
-              this.fetchPost();
+            id: to.params.slug
+            post: []
+            this.fetchPost()
         }
+             
     },
     
     methods: {
@@ -79,7 +83,7 @@ var singlePost = Vue.extend({
             xhr.open('GET', 'wp-json/wp/v2/posts/?slug='+self.id);
             xhr.onload = function(){
                 self.post = JSON.parse(xhr.responseText);
-                console.log(self.post)
+                localStorage.setItem('self.post', JSON.parse(xhr.responseText));
             }
 
             xhr.send();
@@ -110,6 +114,7 @@ var singleCategory = Vue.extend({
             xhr.open('GET', 'wp-json/wp/v2/posts?categories='+self.cat_id);
             xhr.onload = function(){
                 self.category_posts = JSON.parse(xhr.responseText);
+                localStorage.setItem('self.category_posts', JSON.parse(xhr.responseText));
                 console.log(self.category_posts)
             }
 
@@ -139,6 +144,7 @@ var singleAuthor = Vue.extend({
             xhr.open('GET', 'wp-json/wp/v2/posts?user='+self.user);
             xhr.onload = function(){
                 self.author_posts = JSON.parse(xhr.responseText);
+                localStorage.setItem('self.author_posts', JSON.parse(xhr.responseText));                
             }
 
             xhr.send();
