@@ -8,5 +8,5 @@
 The theme has author & category pages which display all posts from that particular author and category. The Home page shows the blog posts with author, date & category. Vue Router 
 is used to add routes to pages & posts.
 
-
+[Demo](http://demo2.rashmi.website/)
 
